@@ -9,8 +9,8 @@
 int main(int argc, char **argv){
 
         char *cale1 = argv[1];
-        char *cale2 = argv[2];
-        char *cale3 = argv[3];
+        char *cale2 = argv[0];
+        char *cale3 = argv[2];
         LISTA *p=NULL,*cap=NULL;
         FILE *d=fopen("d.in", "r+");
         FILE *r=fopen("r.out", "w+");

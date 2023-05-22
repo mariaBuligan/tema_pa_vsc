@@ -273,7 +273,7 @@ Node *copie_arbore(Node *root){
 }
 void spatii(LISTA team,LISTA team2,FILE *r){
     for(int i=strlen(team.nume_echipa);i<67-strlen(team2.nume_echipa);i++){
-       if(i==34)fprintf(r,"-");
+       if(i==33)fprintf(r,"-");
        else fprintf(r," ");
     }
    
