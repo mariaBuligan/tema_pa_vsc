@@ -59,4 +59,4 @@ void afisare_pe_nivel(Node *r,int lvl,FILE *f);
 void make_AVL(Node **r,Clasament_list *sortat8);
 void make_sortat_top8(Clasament_list **sortat8,Node *r);
 LISTA * cerinta_1(int nr_echipe,FILE *d);
-void cerinta_2(LISTA **cap,int nr_echipe);
+Clasament_list* cerinta_3(LISTA *p,FILE *r,int nr_echipe,int cr[]);
