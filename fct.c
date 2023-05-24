@@ -4,14 +4,6 @@
 #include <string.h>
 #include <limits.h>
 
-void afisare_fisier(FILE *f){
-    fseek(f,0,SEEK_SET);
-    char c;
-    while((c=getc(f))!=EOF){
-        printf("%c",c);
-    }
-    printf("\n");
-}
 void AddAtBeggining(LISTA **cap, PLAYER x[], int nr_playeri,char nume_echipa[]){
     float m=0;
     LISTA *new=(LISTA*)malloc(sizeof(LISTA));
@@ -47,7 +39,7 @@ void afisare_lista(FILE *f,LISTA *cap){
         fprintf(f,"%s\n",cap->nume_echipa);
         cap=cap->urm;
     }
-    fprintf(f,"\n");
+   // fprintf(f,"\n");
 }
 
 int cate_echipe_trebuie_eliminate(int nr_echipe){
@@ -243,14 +235,12 @@ void spatii(LISTA team,LISTA team2,FILE *r){
 }
 
 void afisare_pe_nivel(Node *r,int lvl,FILE *f){
-   // printf("new lvl:");
     if(r==NULL) return;
     if(lvl==0)fprintf(f,"%s \n",r->team.nume_echipa);
     if(lvl>0){
-        afisare_pe_nivel(r->left, lvl-1,f);
         afisare_pe_nivel(r->right, lvl-1,f);
+        afisare_pe_nivel(r->left, lvl-1,f);
     }
-   // printf("\n");
 }
 
 int height(Node *r){
@@ -280,7 +270,6 @@ void make_AVL(Node **r,Clasament_list *sortat) {
         Clasament_list *cap=(Clasament_list*)malloc(sizeof(Clasament_list));
         cap=sortat;
         sortat=sortat->urm->urm->urm;
-        printf("%s\n",sortat->team.nume_echipa);
         *r=(Node*)malloc(sizeof(Node));
         (*r)->team=sortat->team;
         (*r)->left=(*r)->right=NULL;
@@ -309,6 +298,4 @@ void make_AVL(Node **r,Clasament_list *sortat) {
         (*r)->left->left->left=NULL;
         (*r)->left->right->left=NULL;
         (*r)->left->right->right=NULL;
-       /* (*r)->left->left->left->left=NULL;
-      (*r)->left->left->left->right=NULL;   */
 }

@@ -35,7 +35,7 @@ typedef struct arbore{
     LISTA team;
     struct arbore *left,*right;
 }Node;
-void afisare_fisier(FILE *f);
+
 void AddAtBeggining(LISTA **cap, PLAYER x[], int nr_playeri,char nume_echipa[]);
 void afisare_lista(FILE *f,LISTA *cap);
 float puncte_echipa (LISTA p);

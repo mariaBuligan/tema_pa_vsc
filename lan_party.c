@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
         int nr_playeri;
         fscanf(d,"%d ",&nr_playeri);
         fgets(nume_echipa,50,d);
-        nume_echipa[strlen(nume_echipa)-1]='\0';
+        nume_echipa[strlen(nume_echipa)-2]='\0';
         PLAYER *jucator=(PLAYER*)malloc(nr_playeri*sizeof(PLAYER));
         for(int j=0;j< nr_playeri;j++){
             jucator[j].firstName=(char*)malloc(20*sizeof(char));
@@ -34,18 +34,19 @@ int main(int argc, char *argv[])
             fscanf(d,"%s %s %d", jucator[j].firstName,jucator[j].secondName,&jucator[j].points);    
         }
         fscanf(d,"\n");
-        AddAtBeggining(&p, jucator, nr_playeri, nume_echipa);
+       AddAtBeggining(&p, jucator, nr_playeri, nume_echipa);
     }
-   
    cap=p;
+   if(cr[1]==1){
    int k=cate_echipe_trebuie_eliminate(nr_echipe);
     nr_echipe=nr_echipe-k;
     for(i=0; i<k; i++){
         float scor_de_eliminat=scor_minim(cap);
         sters_din_lista(&cap,scor_de_eliminat);
     }
-    if(cr[1]==1)afisare_lista(r,cap);
-
+   }
+   afisare_lista(r,cap);
+    if(cr[2]==1 || cr[3]==1 || cr[4]==1){
     Clasament_list *top8=NULL,*cap8=NULL;
     STIVA *s_invinsi=(STIVA*)malloc(sizeof(STIVA)); s_invinsi=NULL; int top1=-1;
     STIVA *s_castigatori=(STIVA*)malloc(sizeof(STIVA)); s_castigatori=NULL; int top2=-1;
@@ -112,8 +113,9 @@ int main(int argc, char *argv[])
     fprintf(r,"\nTHE LEVEL 2 TEAMS ARE:\n");
     afisare_pe_nivel(AvlRoot,2,r);
     }
+    }
     //eliberare_lista(cap);
-    //free(top8);
+    //free(top8); 
     fclose(r);
     fclose(d); 
     return 0;
