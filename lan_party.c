@@ -41,17 +41,23 @@ int main(int argc, char *argv[]){
     fprintf(r,"TOP 8 TEAMS:\n");
     afisare_DRS(root,r);
 }
-   // eliberare_lista(top8);
     if(cr[4]==1){
     Clasament_list *sortat8=(Clasament_list*)malloc(sizeof(Clasament_list));
     Node *AvlRoot=NULL;
     make_sortat_top8(&sortat8,root);
     make_AVL(&AvlRoot,sortat8);
     fprintf(r,"\nTHE LEVEL 2 TEAMS ARE:\n");
+
     afisare_pe_nivel(AvlRoot,2,r);
+    free_tree(AvlRoot);
+    } 
+    free_tree(root);
     }
-    }
+    eliberare_lista(&p);
+    free(cap);
+    free(cr);
     fclose(r);
     fclose(d); 
+    fclose(c);
     return 0;
 }

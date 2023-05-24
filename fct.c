@@ -167,18 +167,16 @@ LISTA top(STIVA *s){
     return s->team;
 }
 
-void eliberare_lista(LISTA *cap){
-    LISTA *aux=cap;
-    while(aux!=NULL){
-        LISTA *next=aux->urm;
-        free(aux->nume_echipa);
-        for(int i=0;i<aux->nr_playeri;i++){
-            free(aux->info[i].firstName);
-            free(aux->info[i].secondName);
+void eliberare_lista(LISTA **cap){
+    if(*cap!=NULL) return;
+     else{
+       eliberare_lista(&((*cap)->urm));
+     for(int i=0;i<(*cap)->nr_playeri;i++){
+            free((*cap)->info[i].firstName);
+            free((*cap)->info[i].secondName);
         }
-        free(aux->info);
-        free(aux);
-        aux=next;
+        free(*cap);
+       *cap=NULL;
     }
 }
 
@@ -285,7 +283,7 @@ LISTA * cerinta_1(int nr_echipe,FILE *d){
         int nr_playeri;
         fscanf(d,"%d ",&nr_playeri);
         fgets(nume_echipa,50,d);
-        nume_echipa[strlen(nume_echipa)-2]='\0';
+        nume_echipa[strlen(nume_echipa)-1]='\0';
         PLAYER *jucator=(PLAYER*)malloc(nr_playeri*sizeof(PLAYER));
         for(int j=0;j< nr_playeri;j++){
             jucator[j].firstName=(char*)malloc(20*sizeof(char));
@@ -348,3 +346,12 @@ Clasament_list* cerinta_3(LISTA *p,FILE *r,int nr_echipe,int cr[]){
    }
    return top8;
 }
+void free_tree(Node* root) {
+    if (root == NULL) return;
+    else{
+    free_tree(root->left);
+    free_tree(root->right);
+    free(root);
+    }
+}
+
