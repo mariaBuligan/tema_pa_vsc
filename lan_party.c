@@ -6,15 +6,14 @@
 #include <limits.h>
 #include <math.h>
 
-int main(int argc, char **argv){
+int main(int argc, char *argv[])
+{
 
-        char *cale1 = argv[1];
-        char *cale2 = argv[0];
-        char *cale3 = argv[2];
         LISTA *p=NULL,*cap=NULL;
-        FILE *d=fopen("d.in", "r+");
-        FILE *r=fopen("r.out", "w+");
-        FILE *c=fopen("c.in","r+");
+       FILE *c=fopen(argv[1], "r+"); 
+        FILE *d=fopen(argv[2], "r+");
+        FILE *r=fopen(argv[3], "w+");
+        
         int nr_echipe,i;
         char nume_echipa[50];
         int *cr=(int*)malloc(5*sizeof(int));
@@ -69,12 +68,12 @@ int main(int argc, char **argv){
              AddAtBeggining2(&top8,q->front->team);
              AddAtBeggining2(&top8,q->front->urm->team);
          }
-        if(pct_1>=pct_2){
+        if(pct_1>pct_2){
              q->front->team.punctaj ++;
             push(&s_castigatori,q->front->team,&top1);
             push(&s_invinsi,q->front->urm->team,&top2);
         }
-       else if(pct_1<pct_2){
+       else if(pct_1<=pct_2){
              q->front->urm->team.punctaj ++;
              push(&s_castigatori,q->front->urm->team,&top1);
              push(&s_invinsi,q->front->team,&top2);
@@ -106,12 +105,12 @@ int main(int argc, char **argv){
     afisare_DRS(root,r);
 }
     if(cr[4]==1){
-    Clasament_list *sortat8=NULL;
-    Node *AvlRoot=(Node*)malloc(sizeof(Node));
-    AvlRoot=NULL;
+    Clasament_list *sortat8=(Clasament_list*)malloc(sizeof(Clasament_list));
+    Node *AvlRoot=NULL;
     make_sortat_top8(&sortat8,root);
     make_AVL(&AvlRoot,sortat8);
     fprintf(r,"\nTHE LEVEL 2 TEAMS ARE:\n");
+    afisare_pe_nivel(AvlRoot,2,r);
     }
     //eliberare_lista(cap);
     //free(top8);

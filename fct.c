@@ -280,13 +280,35 @@ void make_AVL(Node **r,Clasament_list *sortat) {
         Clasament_list *cap=(Clasament_list*)malloc(sizeof(Clasament_list));
         cap=sortat;
         sortat=sortat->urm->urm->urm;
+        printf("%s\n",sortat->team.nume_echipa);
+        *r=(Node*)malloc(sizeof(Node));
         (*r)->team=sortat->team;
-        (*r)->right->team=cap->team;
-        (*r)->right->left->team=cap->urm->team;
-        (*r)->right->left->left->team=cap->urm->urm->team;
-        (*r)->left->team=sortat->urm->team;
-        (*r)->left->left->team=sortat->urm->urm->team;
-        (*r)->left->left->left->team=sortat->urm->urm->team;
-        (*r)->left->left->left->left->team=sortat->urm->urm->team;
+        (*r)->left=(*r)->right=NULL;
 
+    (*r)->right = (Node*)malloc(sizeof(Node));
+    (*r)->right->team = cap->urm->team;
+    (*r)->right->left = (Node*)malloc(sizeof(Node));
+    (*r)->right->left->team = cap->urm->urm->team;
+    (*r)->right->right = (Node*)malloc(sizeof(Node));
+    (*r)->right->right->team = cap->team;
+  
+    (*r)->right->left->left = NULL;
+    (*r)->right->left->right = NULL;
+    (*r)->right->right->left = NULL;
+    (*r)->right->right->right = NULL;
+
+    (*r)->left = (Node*)malloc(sizeof(Node));
+    (*r)->left->team = sortat->urm->urm->team;
+    (*r)->left->left = (Node*)malloc(sizeof(Node));
+    (*r)->left->left->team = sortat->urm->urm->urm->team;
+    (*r)->left->right = (Node*)malloc(sizeof(Node));
+    (*r)->left->right->team = sortat->urm->team;
+    (*r)->left->left->left = (Node*)malloc(sizeof(Node));
+    (*r)->left->left->left->team = sortat->urm->urm->urm->urm->team;
+
+        (*r)->left->left->left=NULL;
+        (*r)->left->right->left=NULL;
+        (*r)->left->right->right=NULL;
+       /* (*r)->left->left->left->left=NULL;
+      (*r)->left->left->left->right=NULL;   */
 }
