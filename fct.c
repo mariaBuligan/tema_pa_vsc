@@ -39,14 +39,12 @@ void afisare_lista(FILE *f,LISTA *cap){
         fprintf(f,"%s\n",cap->nume_echipa);
         cap=cap->urm;
     }
-   // fprintf(f,"\n");
 }
 
 int cate_echipe_trebuie_eliminate(int nr_echipe){
     int k=1;  
     while((k*2)<nr_echipe)
         k=k*2;
-    
     return (nr_echipe-k);
 }
 
@@ -121,15 +119,6 @@ void deQueue(COADA **c){
         free(aux);
     }
 } 
-
-void queue_display(COADA *c){
-    printf("Coada actuala este:\n");
-    while(c){
-        printf("%s ",c->team.nume_echipa);
-        c=c->urm;
-    }
-    printf("\n");
-}
 
 void push(STIVA **s,LISTA echipa,int *top){
     STIVA *new=(STIVA*)malloc(sizeof(STIVA));
@@ -231,7 +220,6 @@ void spatii(LISTA team,LISTA team2,FILE *r){
        if(i==33)fprintf(r,"-");
        else fprintf(r," ");
     }
-   
 }
 
 void afisare_pe_nivel(Node *r,int lvl,FILE *f){
@@ -241,17 +229,6 @@ void afisare_pe_nivel(Node *r,int lvl,FILE *f){
         afisare_pe_nivel(r->right, lvl-1,f);
         afisare_pe_nivel(r->left, lvl-1,f);
     }
-}
-
-int height(Node *r){
-    int hs,hd;
-    if(r==NULL)return -1;
-    hs=height(r->left);
-    hd=height(r->right); 
-
-    if (hs > hd) 
-        return (1 + hs);
-    else     return (1 + hd);
 }
 
 void make_sortat_top8(Clasament_list **sortat8,Node *r){
@@ -295,7 +272,33 @@ void make_AVL(Node **r,Clasament_list *sortat) {
     (*r)->left->left->left = (Node*)malloc(sizeof(Node));
     (*r)->left->left->left->team = sortat->urm->urm->urm->urm->team;
 
-        (*r)->left->left->left=NULL;
-        (*r)->left->right->left=NULL;
-        (*r)->left->right->right=NULL;
+    (*r)->left->left->left=NULL;
+    (*r)->left->right->left=NULL;
+    (*r)->left->right->right=NULL;
+}
+LISTA * cerinta_1(int nr_echipe,FILE *d){
+    LISTA *p=NULL;
+     char nume_echipa[50];
+     int i;
+     for(i=0;i<nr_echipe;i++){
+        int nr_playeri;
+        fscanf(d,"%d ",&nr_playeri);
+        fgets(nume_echipa,50,d);
+        nume_echipa[strlen(nume_echipa)-2]='\0';
+        PLAYER *jucator=(PLAYER*)malloc(nr_playeri*sizeof(PLAYER));
+        for(int j=0;j< nr_playeri;j++){
+            jucator[j].firstName=(char*)malloc(20*sizeof(char));
+            jucator[j].secondName=(char*)malloc(20*sizeof(char));
+            
+            fscanf(d,"%s %s %d", jucator[j].firstName,jucator[j].secondName,&jucator[j].points);    
+        }
+        fscanf(d,"\n");
+       AddAtBeggining(&p, jucator, nr_playeri, nume_echipa);
+    }
+    return p;
+}
+
+void cerinta_3(LISTA **cap,FILE *r){
+
+
 }
