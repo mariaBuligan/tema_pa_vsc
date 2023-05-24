@@ -106,18 +106,13 @@ int main(int argc, char **argv){
     afisare_DRS(root,r);
 }
     if(cr[4]==1){
+    Clasament_list *sortat8=NULL;
     Node *AvlRoot=(Node*)malloc(sizeof(Node));
     AvlRoot=NULL;
-    AvlRoot=copie_arbore(root);
+    make_sortat_top8(&sortat8,root);
+    make_AVL(&AvlRoot,sortat8);
     fprintf(r,"\nTHE LEVEL 2 TEAMS ARE:\n");
-    printf("%d %d",height(AvlRoot->left),height(AvlRoot->right));
-    if(isAVL(AvlRoot)==1)afisare_pe_nivel(AvlRoot,2,r);
-    else {
-        make_AVL(&AvlRoot);
-        printf("%d %d",height(AvlRoot->left),height(AvlRoot->right));
-        afisare_pe_nivel(AvlRoot,2,r);
     }
-}
     //eliberare_lista(cap);
     //free(top8);
     fclose(r);

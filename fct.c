@@ -208,11 +208,9 @@ Node* newNode(LISTA echipa){
 }
 Node* insert(Node* root, LISTA echipa){
     if (root == NULL) return newNode(echipa);
-    //printf("PUN:%s %f %f\n",echipa.nume_echipa,echipa.punctaj,root->team.punctaj);
     if (echipa.punctaj < root->team.punctaj) root->left = insert(root->left, echipa);
     else if (echipa.punctaj > root->team.punctaj) root->right = insert(root->right, echipa);
      else if (echipa.punctaj == root->team.punctaj) {
-       // printf("%d",strcmp(echipa.nume_echipa,root->team.nume_echipa));
         if(strcmp(root->team.nume_echipa,echipa.nume_echipa)>0)  root->left = insert(root->left,echipa);
         if(strcmp(root->team.nume_echipa,echipa.nume_echipa)<0)  root->right = insert(root->right,echipa);
     }
@@ -236,41 +234,6 @@ void cerinte(int c[],FILE *f){
    fscanf(f,"%d %d %d %d %d",&c[0],&c[1],&c[2],&c[3],&c[4]);
 }
 
-Node *rightRotation(Node *z) {
-    Node *y = z->left;
-    Node *x = y->right;
-    y->right = z;
-    z->left = x;
-    return y;
-}
-
-Node *leftRotation(Node *z) {
-    Node *y = z->right;
-    Node *x = y->left;
-    y->left = z;
-    z->right = x;
-    return y;
-}
-
-Node* LRRotation(Node*Z) {
-    Z->left = leftRotation(Z->left);
-    return rightRotation(Z);
-}
-
-Node* RLRotation(Node*Z) {
-    Z->right = rightRotation(Z->right);
-    return leftRotation(Z);
-}
-
-Node *copie_arbore(Node *root){
-    if(root==NULL) return NULL;
-    
-    Node *cpy=newNode(root->team);
-    cpy->left=copie_arbore(root->left);
-    cpy->right=copie_arbore(root->right);
-
-    return cpy;
-}
 void spatii(LISTA team,LISTA team2,FILE *r){
     for(int i=strlen(team.nume_echipa);i<67-strlen(team2.nume_echipa);i++){
        if(i==33)fprintf(r,"-");
@@ -278,6 +241,7 @@ void spatii(LISTA team,LISTA team2,FILE *r){
     }
    
 }
+
 void afisare_pe_nivel(Node *r,int lvl,FILE *f){
    // printf("new lvl:");
     if(r==NULL) return;
@@ -288,6 +252,7 @@ void afisare_pe_nivel(Node *r,int lvl,FILE *f){
     }
    // printf("\n");
 }
+
 int height(Node *r){
     int hs,hd;
     if(r==NULL)return -1;
@@ -298,43 +263,30 @@ int height(Node *r){
         return (1 + hs);
     else     return (1 + hd);
 }
-int isAVL(Node *r){
-    if(abs(height(r->left) - height(r->right))<=1)
-            return 1;
-        else return 0;
+
+void make_sortat_top8(Clasament_list **sortat8,Node *r){
+      if(r!=NULL){
+        make_sortat_top8(sortat8,r->left);
+
+        Clasament_list *new=(Clasament_list*)malloc(sizeof(Clasament_list));
+        new->team=r->team;
+        new->urm=(*sortat8);
+        (*sortat8)=new;
+
+        make_sortat_top8(sortat8,r->right);
+    }
 }
-/* void make_AVL(Node **r){
+void make_AVL(Node **r,Clasament_list *sortat) {
+        Clasament_list *cap=(Clasament_list*)malloc(sizeof(Clasament_list));
+        cap=sortat;
+        sortat=sortat->urm->urm->urm;
+        (*r)->team=sortat->team;
+        (*r)->right->team=cap->team;
+        (*r)->right->left->team=cap->urm->team;
+        (*r)->right->left->left->team=cap->urm->urm->team;
+        (*r)->left->team=sortat->urm->team;
+        (*r)->left->left->team=sortat->urm->urm->team;
+        (*r)->left->left->left->team=sortat->urm->urm->team;
+        (*r)->left->left->left->left->team=sortat->urm->urm->team;
 
-    if(height((*r)->left)>height((*r)->right)){
-        Node *aux=(*r)->left;
-        if(aux->left!=NULL && aux->left->left!=NULL)(*r)->left=rightRotation(aux);
-        else if(aux->left!=NULL && aux->left->right!=NULL)(*r)->left=LRRotation(aux);
-        free(aux);
-    }
-     else{
-        Node *aux=(*r)->right;
-        if(aux->right!=NULL && aux->right->right!=NULL)(*r)->right=leftRotation(aux);
-        else if(aux->right!=NULL && aux->right->left!=NULL)(*r)->right=RLRotation(aux);
-        free(aux);
-    }   
-     
-    if(isAVL(*r)==0)make_AVL(r);
-} */
-void make_AVL(Node **r) {
-    int balanceFactor = height((*r)->left) - height((*r)->right);
-
-    if (balanceFactor > 1) {
-        if (height((*r)->left->left) >= height((*r)->left->right))
-            (*r) = rightRotation(*r);
-        else
-            (*r) = LRRotation(*r);
-    } else if (balanceFactor < -1) {
-        if (height((*r)->right->right) >= height((*r)->right->left))
-            (*r) = leftRotation(*r);
-        else
-            (*r) = RLRotation(*r);
-    }
-
-    if (isAVL(*r) == 0)
-        make_AVL(r);
 }
