@@ -1,27 +1,27 @@
-Cerinta 1:
--am citit nr de jucatori, numele echipei, si informatiile tuturor jucatorilor
--cu functia 'AddAtBeggining' am adaugat la inceputul listei 'p' fiecare echipa in parte;
+Requirement 1:
+I read the number of players, the team name, and the information of all players.
+Using the 'AddAtBeginning' function, I added each team to the beginning of the list 'p' individually.
 
-Cerinta 2:
--functia 'cate_echipe_trebuie_eliminate' calculeaza diferenta dintre nr de echipe si cea mai apropiata putere a lui 2
--functia 'scor_minim' calculeaza scorul cel mai mic din toata lista de echipe, iar mai apoi functia 'sters_din_lista' elimina prim echipa gasita cu respectivul scor
--acest lucru se repeta pana cand s-a ajuns la nr de echipe care trebuia eliminat
+Requirement 2:
+The 'teams_to_be_eliminated' function calculates the difference between the number of teams and the nearest power of 2.
+The 'minimum_score' function calculates the lowest score from the entire list of teams, and then the 'remove_from_list' function removes the first team found with that score.
+This process repeats until the required number of teams have been eliminated.
 
-Cerinta 3:
--variabila 'top8' va retine ultimele 8 echipe ramase intr-o lista
--cu 'enQueue' se pun toate echipele din lista p in coada q
--ultimele 8 echipe sunt toate echipele din coada ramase in pen-pen-ultima runda, asa ca primul if verifica daca suntem in aceea runda, daca da, at echipele se vor adauga in lista 'top8'
--dupa fiecare meci, sunt adaugate in stiva de castigatori 's_castigatori' si in stiva de invinsi 's_invinsi' echipele
--dupa fiecare runda se afiseaza castigatorii cu functia 'stack_dispaly'
--dupa aceea pana la golirea stivei de castigatori, se adauga inapoi in coada echipele, iar stiva de invinsi se sterge recursiv cu functia 'stergere_recursiva'
+Requirement 3:
+The 'top8' variable will store the last 8 remaining teams in a list.
+Using 'enQueue', all teams from list 'p' are placed into queue 'q'.
+The last 8 teams are all teams from the queue remaining in the second-to-last round, so the first 'if' checks if we are in that round, if yes, all teams will be added to the 'top8' list.
+After each match, the winning teams are added to the 'winners_stack' stack and the losing teams to the 'losers_stack'.
+After each round, the winners are displayed using the 'stack_display' function.
+Then, until the 'winners_stack' is empty, the teams are added back to the queue, and the 'losers_stack' is recursively cleared using the 'recursive_deletion' function.
 
-Cerinta 4:
--arborele BST are ca radacina 'root'
--se parcurge lista si se adauga in arbore fiecare echipa prin functia 'insert'
--afisarea in ordine a ultimelor 8 echipe se face prin afisarea arborelui de la dreapta la stanga adica DRS, prin functia 'afisare_DRS'
+Requirement 4:
+The BST tree has 'root' as its root.
+The list is traversed and each team is added to the tree using the 'insert' function.
+Displaying the last 8 teams in order is done by displaying the tree from right to left, i.e., RDL, using the 'display_RDL' function.
 
-Cerinta 5:
--functia  'make_sortat_top8' parcurge arborele BST ca si la cerinta 4 si salveaza echipele in ordine in alta lista numita 'sortat8'
--astfel lista sortat8 este lista top8, dar ordonata
--functia 'make_AVL' va lua mijlocul listei sortate si il va pune ca radacina, tot ce e inainte de mijloc va fi partea dreapta a arborelui, iar tot ce e dupa mijloc va fi partea stanga a arborelui
--functia 'afisare_pe_nivel' afiseaza un anumit nivel al unui arbore, in cazul acesta, nivelul 2 
+Requirement 5:
+The 'make_sorted_top8' function traverses the BST tree as in requirement 4 and saves the teams in order in another list called 'sorted8'.
+Thus, the 'sorted8' list represents the top 8 teams, but in order.
+The 'make_AVL' function will take the middle of the sorted list and set it as the root; everything before the middle will be the right part of the tree, and everything after the middle will be the left part of the tree.
+The 'display_at_level' function displays a specific level of a tree, in this case, level 2.
